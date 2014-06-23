@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JQUERY的无new初始化</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        //jQuery框架分隔作用域的处理
+        var aQuery = function(selector,context){
+            return new aQuery.prototype.init();
+        };
+        aQuery.prototype = {
+            init:function(){
+                this.age = 18;
+                return this;
+            },
+            name:function(){},
+            age:20
+        };
+        //独立作用域 出来了 但是产生一个问题就是aQuery.prototype的其他属性和方法丢失无法访问！
+        //很明显new的init跟jquery类的this分离了
+        console.log(aQuery());
+        console.log(aQuery().name);
+    </script>
+</head>
+<body>
+<b>JQUERY的无new初始化</b>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JQUERY的无new初始化</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        //很明显aQuery()返回的是aQuery类的实例，那么在init中的this其实也是指向的aQuery类的实例
+        //问题来了init的this指向的是aQuery类，如果把init函数也当作一个构造器，那么内部的this要如何处理？
+        var aQuery = function(selector, context){
+            return aQuery.prototype.init();
+        };
+        aQuery.prototype = {
+            init:function(){
+                this.age = 18;
+                return this;
+            },
+            name:function(){},
+            age:20
+        };
+        //很明显，这么做会污染prototype对象，导致所有的aQuery的对象都是公用的一个prototype 这样是会冲突的！
+        console.log(aQuery().age);
+    </script>
+</head>
+<body>
+<b>JQUERY的无new初始化</b>
+</body>
+</html>

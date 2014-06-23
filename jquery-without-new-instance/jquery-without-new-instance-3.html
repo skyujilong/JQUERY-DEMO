@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JQUERY的无new初始化</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        //怎么访问jQuery类原型上的属性与方法？
+        // Give the init function the jQuery prototype for later instantiation
+        //jQuery.fn.init.prototype = jQuery.fn; 将jquery的prototype替换到jquery.prototype.init.prototype上 这样就能访问了
+        var aQuery = function(selector,context){
+            return new aQuery.prototype.init();
+        };
+        aQuery.prototype = {
+            init : function(){
+                return this;
+            },
+            name:function(){},
+            age:20
+        };
+        aQuery.prototype.init.prototype = aQuery.prototype;
+
+        console.log(aQuery());
+        console.log(aQuery().age);
+    </script>
+</head>
+<body>
+<b>JQUERY的无new初始化</b>
+</body>
+</html>
