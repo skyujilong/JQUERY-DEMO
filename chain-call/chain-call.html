@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>链式调用</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        /**
+         * 链式调用，主要是每个方法都是返回自己(this)，节省代码，风格优雅
+         * @param selector
+         * @param context
+         * @returns {aQuery.prototype.init}
+         */
+        var aQuery = function(selector,context){
+            return new aQuery.prototype.init();
+        };
+        aQuery.prototype = {
+            init : function(){
+                console.log('init function is running !');
+                return this;
+            },
+            name:function(){
+                console.log('name function is running !');
+                return this;
+            },
+            age:20
+        };
+        aQuery.prototype.init.prototype = aQuery.prototype;
+
+        aQuery().name();
+    </script>
+</head>
+<body>
+    <b>链式调用</b>
+</body>
+</html>
